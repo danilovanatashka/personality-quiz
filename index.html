@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кто ты? — Угадай личность</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎭</text></svg>">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- PapaParse -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <!-- Стили -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Шапка -->
+  <header>
+    <img src="logo.png" class="logo" alt="Логотип">
+<h1>Кто ты?</h1>
+  </header>
+
+  <!-- Основной контент -->
+  <main class="main-container">
+    <h2>Выберите категорию</h2>
+    <div class="categories-grid" id="categories-grid">
+      <!-- Кнопки категорий вставятся сюда через JavaScript -->
+      <p id="loading-text" style="color: var(--color-primary); font-weight: 600;">
+        Загрузка категорий...
+      </p>
+    </div>
+  </main>
+
+  <!-- Скрипт -->
+  <script src="script.js"></script>
+
+</body>
+</html>

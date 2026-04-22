@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кто ты? — Угадай личность</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎭</text></svg>">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- PapaParse -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <!-- Стили -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Шапка -->
+  <header>
+    <img src="logo.png" class="logo" alt="Логотип">
+<h1>Кто ты?</h1>
+    <a href="index.html" class="btn-back">← Назад</a>
+  </header>
+
+  <!-- Игровой экран -->
+  <main class="game-container">
+
+    <!-- Блок с фото -->
+    <div class="photo-block" id="photo-block">
+      <span class="question-mark">?</span>
+    </div>
+    <div class="person-name" id="person-name"></div>
+
+    <!-- Сетка карточек -->
+    <div class="game-layout">
+      <div class="cards-grid" id="cards-grid">
+        <!-- Карточки вставятся сюда через JavaScript -->
+      </div>
+
+      <!-- Блок ввода ответа -->
+      <div class="answer-section">
+        <div class="answer-row">
+          <input
+            type="text"
+            id="answer-input"
+            placeholder="Введите имя и фамилию..."
+            autocomplete="off"
+          >
+          <button class="btn-check" id="btn-check">Проверить</button>
+        </div>
+        <div class="answer-message" id="answer-message"></div>
+
+        <!-- Кнопка Сдаться -->
+        <button class="btn-surrender" id="btn-surrender">Сдаться</button>
+
+        <!-- Кнопки после победы/сдачи (скрыты до финала) -->
+        <div class="action-buttons" id="action-buttons" style="display:none;">
+          <button class="btn-next" id="btn-next">Следующая личность →</button>
+          <button class="btn-categories" id="btn-categories">Выбрать категорию</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Модальное окно "Сдаться" -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <h3>Сдаётесь?</h3>
+      <p>Вы уверены, что хотите узнать ответ?</p>
+      <div class="modal-buttons">
+        <button class="btn-modal-cancel" id="btn-modal-cancel">Попробую ещё</button>
+        <button class="btn-modal-confirm" id="btn-modal-confirm">Сдаюсь</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Скрипт -->
+  <script src="script.js"></script>
+
+</body>
+</html>
