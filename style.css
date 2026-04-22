@@ -608,8 +608,16 @@ header h1 {
   }
 
   .card {
-    height: 100px;
+    height: auto;
+    min-height: 100px;
   }
+
+  .card-front,
+  .card-back {
+   position: relative;
+   height: auto;
+   min-height: 100px;
+}
 
   .card-back.association {
     font-size: 13px;
