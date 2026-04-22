@@ -366,7 +366,7 @@ function revealPhoto() {
     const img = document.createElement('img');
     img.src = currentPerson.photos[0];
     img.alt = currentPerson.name;
-    img.style.width  = '100%';
+    img.style.width = '100%';
     img.style.height = '100%';
     img.style.objectFit = 'cover';
     img.onerror = function() {
@@ -377,12 +377,13 @@ function revealPhoto() {
     };
     photoBlock.appendChild(img);
   } else {
-    // Слайдер для нескольких фото
     const photos = currentPerson.photos;
     let currentPhotoIndex = 0;
 
     const sliderContainer = document.createElement('div');
     sliderContainer.className = 'slider-container';
+    sliderContainer.title = 'Нажмите для следующего фото';
+    sliderContainer.style.cursor = 'pointer';
 
     const img = document.createElement('img');
     img.src = photos[0];
@@ -394,41 +395,38 @@ function revealPhoto() {
       this.replaceWith(initials);
     };
 
-    const prevBtn = document.createElement('button');
-    prevBtn.className = 'slider-btn slider-prev';
-    prevBtn.innerHTML = '&#8249;';
-    prevBtn.addEventListener('click', () => {
-      goToPhoto((currentPhotoIndex - 1 + photos.length) % photos.length);
-    });
-
-    const nextBtn = document.createElement('button');
-    nextBtn.className = 'slider-btn slider-next';
-    nextBtn.innerHTML = '&#8250;';
-    nextBtn.addEventListener('click', () => {
-      goToPhoto((currentPhotoIndex + 1) % photos.length);
-    });
-
     const dotsContainer = document.createElement('div');
     dotsContainer.className = 'slider-dots';
     photos.forEach((_, i) => {
       const dot = document.createElement('span');
       dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
-      dot.addEventListener('click', () => goToPhoto(i));
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goToPhoto(i);
+      });
       dotsContainer.appendChild(dot);
     });
+
+    const counter = document.createElement('div');
+    counter.className = 'slider-counter';
+    counter.textContent = `1 / ${photos.length}`;
 
     function goToPhoto(index) {
       currentPhotoIndex = index;
       img.src = photos[index];
+      counter.textContent = `${index + 1} / ${photos.length}`;
       dotsContainer.querySelectorAll('.slider-dot').forEach((dot, i) => {
         dot.classList.toggle('active', i === index);
       });
     }
 
-    sliderContainer.appendChild(prevBtn);
+    sliderContainer.addEventListener('click', () => {
+      goToPhoto((currentPhotoIndex + 1) % photos.length);
+    });
+
     sliderContainer.appendChild(img);
-    sliderContainer.appendChild(nextBtn);
     sliderContainer.appendChild(dotsContainer);
+    sliderContainer.appendChild(counter);
     photoBlock.appendChild(sliderContainer);
   }
 
