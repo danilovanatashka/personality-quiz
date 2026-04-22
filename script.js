@@ -1,6 +1,11 @@
 // ============================================================
 // ОПРЕДЕЛЕНИЕ СТРАНИЦЫ
 // ============================================================
+let currentPerson   = null;
+let currentCategory = null;
+let allPersons      = [];
+let currentCardIndex = 0;
+let gameFinished    = false;
 const isIndexPage = document.querySelector('.main-container') !== null;
 const isGamePage  = document.querySelector('.game-container') !== null;
 
@@ -44,12 +49,6 @@ if (isGamePage) {
   initGamePage();
 }
 
-// Глобальные переменные игры
-let currentPerson   = null;
-let currentCategory = null;
-let allPersons      = [];
-let currentCardIndex = 0;
-let gameFinished    = false;
 
 async function initGamePage() {
   const params = new URLSearchParams(window.location.search);
@@ -356,37 +355,87 @@ function revealAll(mode) {
 // ОТКРЫТИЕ ФОТО
 // ============================================================
 function revealPhoto() {
-  const photoBlock  = document.getElementById('photo-block');
+  const photoBlock   = document.getElementById('photo-block');
   const personNameEl = document.getElementById('person-name');
 
   photoBlock.innerHTML = '';
 
   if (currentPerson.photos.length === 0) {
     showInitials(photoBlock, currentPerson.name);
+  } else if (currentPerson.photos.length === 1) {
+    const img = document.createElement('img');
+    img.src = currentPerson.photos[0];
+    img.alt = currentPerson.name;
+    img.style.width  = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'cover';
+    img.onerror = function() {
+      const initials = document.createElement('div');
+      initials.className = 'person-initials';
+      initials.textContent = getInitials(currentPerson.name);
+      this.replaceWith(initials);
+    };
+    photoBlock.appendChild(img);
   } else {
-    const container = document.createElement('div');
-    container.className = 'photos-container';
+    // Слайдер для нескольких фото
+    const photos = currentPerson.photos;
+    let currentPhotoIndex = 0;
 
-    const totalPhotos = Math.min(currentPerson.photos.length, 3);
-    for (let i = 0; i < totalPhotos; i++) {
-      const img = document.createElement('img');
-      img.src = currentPerson.photos[i];
-      img.alt = currentPerson.name;
-      img.onerror = function() {
-        const initials = document.createElement('div');
-        initials.className = 'person-initials';
-        initials.textContent = getInitials(currentPerson.name);
-        this.replaceWith(initials);
-      };
-      container.appendChild(img);
+    const sliderContainer = document.createElement('div');
+    sliderContainer.className = 'slider-container';
+
+    const img = document.createElement('img');
+    img.src = photos[0];
+    img.alt = currentPerson.name;
+    img.onerror = function() {
+      const initials = document.createElement('div');
+      initials.className = 'person-initials';
+      initials.textContent = getInitials(currentPerson.name);
+      this.replaceWith(initials);
+    };
+
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'slider-btn slider-prev';
+    prevBtn.innerHTML = '&#8249;';
+    prevBtn.addEventListener('click', () => {
+      goToPhoto((currentPhotoIndex - 1 + photos.length) % photos.length);
+    });
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'slider-btn slider-next';
+    nextBtn.innerHTML = '&#8250;';
+    nextBtn.addEventListener('click', () => {
+      goToPhoto((currentPhotoIndex + 1) % photos.length);
+    });
+
+    const dotsContainer = document.createElement('div');
+    dotsContainer.className = 'slider-dots';
+    photos.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goToPhoto(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function goToPhoto(index) {
+      currentPhotoIndex = index;
+      img.src = photos[index];
+      dotsContainer.querySelectorAll('.slider-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
     }
 
-    photoBlock.appendChild(container);
+    sliderContainer.appendChild(prevBtn);
+    sliderContainer.appendChild(img);
+    sliderContainer.appendChild(nextBtn);
+    sliderContainer.appendChild(dotsContainer);
+    photoBlock.appendChild(sliderContainer);
   }
 
   personNameEl.textContent = currentPerson.name;
   personNameEl.classList.add('visible');
 }
+
 
 function showInitials(container, name) {
   const div = document.createElement('div');

@@ -34,7 +34,7 @@ body {
 
 /* ===== ШАПКА ===== */
 header {
-  background-color: var(--color-light-teal);
+  background-color: var(--color-yellow);
   padding: 0;
   display: flex;
   align-items: center;
@@ -197,11 +197,12 @@ header h1 {
 }
 
 .person-name {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--color-navy);
   text-align: center;
   margin-top: 12px;
+  margin-bottom: 24px;
   display: none;
 }
 
@@ -228,7 +229,7 @@ header h1 {
 /* ===== КАРТОЧКА — 3 СОСТОЯНИЯ ===== */
 .card {
   width: 100%;
-  height: 90px;
+  height: 110px;
   perspective: 1000px;
   cursor: default;
 }
@@ -270,15 +271,15 @@ header h1 {
 
 .card-front .card-icon {
   font-size: 28px;
-  color: var(--color-primary);
-  opacity: 0.7;
+  color: var(--color-navy);
+  opacity: 0.8;
 }
 
 .card-front .card-number {
   font-size: 11px;
   font-weight: 600;
-  color: var(--color-primary);
-  opacity: 0.6;
+  color: var(--color-navy);
+  opacity: 0.8;
 }
 
 
@@ -298,13 +299,15 @@ header h1 {
 }
 
 .card-back.explanation {
-  background-color: var(--color-navy);
-  color: #FFFFFF;
+  background-color: #FFFFFF;
+  color: var(--color-navy);
   font-size: 13px;
   font-weight: 400;
-  text-align: center;
+  text-align: left;
   transform: rotateY(180deg);
   display: none;
+  border: 2px solid var(--color-red);
+  padding: 12px 14px;
 }
 
 .card.show-explanation .card-back.association {
@@ -605,7 +608,7 @@ header h1 {
   }
 
   .card {
-    height: 80px;
+    height: 100px;
   }
 
   .card-back.association {
@@ -636,4 +639,70 @@ header h1 {
     width: 100%;
     text-align: center;
   }
+/* ===== СЛАЙДЕР ФОТО ===== */
+.slider-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,18,25,0.45);
+  color: #fff;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+
+.slider-btn:hover {
+  background: rgba(0,18,25,0.75);
+}
+
+.slider-prev { left: 4px; }
+.slider-next { right: 4px; }
+
+.slider-dots {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+}
+
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.slider-dot.active {
+  background: #FFFFFF;
+}
 }
