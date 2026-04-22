@@ -705,4 +705,24 @@ header h1 {
 .slider-dot.active {
   background: #FFFFFF;
 }
+
+}
+/* ===== ПОДВАЛ ===== */
+footer {
+  text-align: center !important;
+  padding: 24px 16px;
+  font-size: 13px;
+  color: #EE9B00 !important;
+  font-weight: 600;
+  margin-top: 48px;
+  border-top: 1px solid var(--color-light-teal);
+}
+
+footer a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+footer a:hover {
+  color: var(--color-teal);
 }
