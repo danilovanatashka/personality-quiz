@@ -139,8 +139,9 @@ header h1 {
 
 /* ===== БЛОК С ФОТО (центральный) ===== */
 .photo-block {
-  width: 220px;
-  height: 220px;
+  width: 340px;
+  height: auto;
+  min-height: 220px;
   border-radius: 20px;
   background-color: var(--color-cream);
   border: 3px solid var(--color-primary);
@@ -173,15 +174,16 @@ header h1 {
 
 .photo-block img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .photo-block .photos-container img {
   flex: 1;
-  height: 100%;
-  object-fit: cover;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .photo-block .person-initials {
@@ -659,8 +661,9 @@ header h1 {
 
 .slider-container img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .slider-dots {
